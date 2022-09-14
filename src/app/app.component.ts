@@ -29,5 +29,5 @@ export class AppComponent {
   }
 
   opened= false;
-  title = 'LlamitaTEC';
+  title = 'SureService';
 }

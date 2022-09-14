@@ -1,16 +1,10 @@
 {
   "hosting": {
-    "public": "dist/llamita--frontend",
+    "public": "dist/sureservice--frontend",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
-    ],
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
     ]
   }
 }
