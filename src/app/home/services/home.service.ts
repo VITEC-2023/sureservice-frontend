@@ -7,9 +7,9 @@ import {catchError, Observable, retry, throwError} from "rxjs";
 })
 export class HomeService {
 
-  basePath = 'https://api-llamitatec.uc.r.appspot.com/api/v1/requests';
-  basePath2 = 'https://api-llamitatec.uc.r.appspot.com/api/v1/clients';
-  basePath3= 'https://api-llamitatec.uc.r.appspot.com/api/v1/employees';
+  basePath = 'https://sureservice.herokuapp.com/api/v1/requests';
+  basePath2 = 'https://sureservice.herokuapp.com/api/v1/clients';
+  basePath3= 'https://sureservice.herokuapp.com/api/v1/employees';
   constructor(private http: HttpClient) { }
 
   httpOptions = {

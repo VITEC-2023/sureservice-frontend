@@ -6,10 +6,10 @@ import { throwError, retry, catchError, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ConfigureregisterService {
-  basePath = 'https://api-llamitatec.uc.r.appspot.com/api/v1/users/auth';
-  basePath2 = 'https://api-llamitatec.uc.r.appspot.com/api/v1/clients';
-  basePath3 = 'https://api-llamitatec.uc.r.appspot.com/api/v1/employees';
-  basePath4 = 'https://api-llamitatec.uc.r.appspot.com/api/v1/users';
+  basePath = 'https://sureservice.herokuapp.com/api/v1/users/auth';
+  basePath2 = 'https://sureservice.herokuapp.com/api/v1/clients';
+  basePath3 = 'https://sureservice.herokuapp.com/api/v1/employees';
+  basePath4 = 'https://sureservice.herokuapp.com/api/v1/users';
   constructor(private http: HttpClient) { }
 
   httpOptions = {
