@@ -9,8 +9,7 @@ import {Router} from "@angular/router";
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  
-  message: string =""
+  hide = true;
 
   loginForm :FormGroup= this.builder.group({
     email: ['', [Validators.email, Validators.required]],

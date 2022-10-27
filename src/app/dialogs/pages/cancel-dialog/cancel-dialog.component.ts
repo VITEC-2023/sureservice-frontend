@@ -8,6 +8,8 @@ import { HomeService } from 'src/app/home/services/home.service';
 })
 export class CancelDialogComponent implements OnInit {
 
+  cancel = false
+
   constructor(private newHomeService: HomeService) { }
 
   ngOnInit(): void {
@@ -23,8 +25,11 @@ export class CancelDialogComponent implements OnInit {
 
   deleteRequest() {
     this.newHomeService.deleteById(this.getCurrentRequestId()).subscribe( (response: any) => {
+      this.cancel=true
     })
-    window.location.reload();
   }
   
+  reload(){
+    window.location.reload()
+  }
 }

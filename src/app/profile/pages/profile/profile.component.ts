@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ProfileService } from '../../services/profile.service';
 import {Router} from "@angular/router";
-import { Client } from '../../model/client';
+import { Client } from '../../../model/client';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-profile',
@@ -18,14 +19,19 @@ export class ProfileComponent implements OnInit {
     number: ['', {validators: [Validators.pattern('^[0-9]*$'), Validators.maxLength(9),Validators.minLength(9)], updateOn: 'change'}],
     altnumber: ['', {validators: [Validators.pattern('^[0-9]*$'), Validators.maxLength(5),Validators.minLength(5)], updateOn: 'change'}],
     description: ['', {validators: [Validators.maxLength(1000)], updateOn: 'change'}],
-    adress: ['', {validators: [Validators.maxLength(500)], updateOn: 'change'}], 
-    urlToImage: ['', {validators: Validators.maxLength(500)}]
+    adress: ['', {validators: [Validators.maxLength(500)], updateOn: 'change'}],
+    urlToImage: ['', {validators: Validators.maxLength(500)}],
+    name: ['', {validators: [Validators.maxLength(30),Validators.minLength(6)], updateOn: 'change'}]
   });
 
-  constructor(public builder: FormBuilder, private newProfileService: ProfileService, public router: Router) { }
+  constructor(public builder: FormBuilder, private newProfileService: ProfileService, public router: Router, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.getProfiles();
+  }
+
+  openSnackBar(){
+    this._snackBar.open("Perfil actualizado correctamente", "Cerrar");
   }
 
   get urlToImage() { return this.profileForm.get('urlToImage');}
@@ -35,8 +41,10 @@ export class ProfileComponent implements OnInit {
   get altnumber() { return this.profileForm.get('altnumber'); }
 
   get description() { return this.profileForm.get('description'); }
-  
+
   get adress() { return this.profileForm.get('adress'); }
+
+  get name() { return this.profileForm.get('name');}
 
   getCurrentUserId(){
     let currentUserString= localStorage.getItem('currentUser')
@@ -47,7 +55,7 @@ export class ProfileComponent implements OnInit {
   }
 
   getProfiles() {
-    this.newProfileService.getById(this.getCurrentUserId()).subscribe( (response: any) => {
+    this.newProfileService.getClient(this.getCurrentUserId()).subscribe( (response: any) => {
       this.client = response;
     })
   }
@@ -55,38 +63,48 @@ export class ProfileComponent implements OnInit {
   UpdateProfile() {
     this.itemData = this.client
     this.itemData.id = this.client.id;
-    this.itemData.name = this.client.name;
     this.itemData.age = this.client.age;
-    this.itemData.user=this.client.user;
+
+    if(this.profileForm.value.name==""){
+      this.itemData.name = this.client.name;
+    }else{
+      this.itemData.name = this.profileForm.value.name;
+    }
+
     if(this.profileForm.value.number==""){
       this.itemData.phone = this.client.phone;
     }else{
       this.itemData.phone = this.profileForm.value.number;
     }
+
     if(this.profileForm.value.altnumber==""){
       this.itemData.altphone = this.client.altphone;
     }else{
       this.itemData.altphone = this.profileForm.value.altnumber;
     }
+
     if(this.profileForm.value.adress==""){
       this.itemData.address = this.client.address;
     }else{
       this.itemData.address = this.profileForm.value.adress;
     }
+
     if(this.profileForm.value.description==""){
       this.itemData.description = this.client.description;
     }else{
       this.itemData.description = this.profileForm.value.description;
     }
+
     if(this.profileForm.value.urlToImage==""){
       this.itemData.urlToImage = this.client.urlToImage;
     }else{
       this.itemData.urlToImage = this.profileForm.value.urlToImage;
     }
+
     this.newProfileService.updateProfile(this.itemData.id,this.itemData).subscribe( (response: any) => {
     })
     this.itemData = new Client();
-    this.edit!=this.edit
-    window.location.reload();
+    this.edit=!this.edit
+    this.openSnackBar()
   }
 }

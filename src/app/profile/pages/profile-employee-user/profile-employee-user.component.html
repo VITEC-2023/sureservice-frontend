@@ -17,7 +17,13 @@
         </div>
         <mat-card-content>
             <h2>Tus datos</h2>
-            <div> <h3>{{employee.name}}</h3></div>   
+            <mat-form-field appearance="fill" *ngIf="edit">
+                <mat-label>New name</mat-label>
+                <input autocomplete="off" matInput formControlName="name">
+                <mat-error *ngIf="name?.errors?.['minLength'] && !name?.errors?.['required']">Name must have at least 6 characters</mat-error>
+                <mat-error *ngIf="!name?.errors?.['required']">Name must be valid</mat-error>
+            </mat-form-field>
+            <div *ngIf="edit==false"><h3>{{employee.name}}</h3></div>   
             <h2>Contacto</h2>
             <ul>
                 <li><h3>{{employee.user.email}}</h3></li>

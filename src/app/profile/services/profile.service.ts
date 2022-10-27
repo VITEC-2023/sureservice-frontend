@@ -1,16 +1,19 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
 import {catchError, Observable, retry, throwError} from "rxjs";
+import {Api} from "../../API/api";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProfileService {
 
-  basePath = 'https://sureservice.herokuapp.com/api/v1/clients';
-  basePath3= 'https://sureservice.herokuapp.com/api/v1/employees';
-  basePath2 = 'https://sureservice.herokuapp.com/api/v1/requests'; 
-  basePath4 = 'https://sureservice.herokuapp.com/api/v1/services'; 
+  api = new Api()
+  urlClient='clients'
+  urlEmployee='employees'
+  urlRequest='requests'
+
+
   constructor(private http: HttpClient) { }
 
   httpOptions = {
@@ -31,7 +34,7 @@ export class ProfileService {
   }
 
   getAll() {
-    return this.http.get(this.basePath, this.httpOptions)
+    return this.http.get(this.api.bakendLink()+this.urlClient, this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError)
@@ -48,25 +51,8 @@ export class ProfileService {
     }else return null
   }
 
-  getById(id: any) {
-    if(this.getCurrentUser().roles[0]=='ROLE_EMPLOYEE'){
-      return this.http.get(`${this.basePath3}/users/${id}`, this.httpOptions)
-      .pipe(
-        retry(2),
-        catchError(this.handleError)
-      )
-    }
-    else{
-      return this.http.get(`${this.basePath}/${id}`, this.httpOptions)
-        .pipe(
-          retry(2),
-          catchError(this.handleError)
-        )
-    }
-  }
-
   getClient(id: any){
-    return this.http.get(`${this.basePath}/${id}`, this.httpOptions)
+    return this.http.get(`${this.api.bakendLink()+this.urlClient}/${id}`, this.httpOptions)
     .pipe(
       retry(2),
       catchError(this.handleError)
@@ -74,15 +60,15 @@ export class ProfileService {
   }
 
   getByEmployeeId(id: any) {
-    return this.http.get(`${this.basePath3}/users/${id}`, this.httpOptions)
+    return this.http.get(`${this.api.bakendLink()+this.urlEmployee}/users/${id}`, this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError)
       )
   }
 
-  createRequest(clientId:any,employeeId:any,serviceId:any,item: object):Observable<object> {
-    return this.http.post(`${this.basePath2}/${clientId}/${employeeId}/${serviceId}`,item,this.httpOptions)
+  createRequest(clientId:any,employeeId:any,item: object):Observable<object> {
+    return this.http.post(`${this.api.bakendLink()+this.urlRequest}/${clientId}/${employeeId}`,item,this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError)
@@ -90,7 +76,7 @@ export class ProfileService {
   }
 
   getAllRequest() {
-    return this.http.get(this.basePath2, this.httpOptions)
+    return this.http.get(this.api.bakendLink()+this.urlRequest, this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError)
@@ -99,14 +85,14 @@ export class ProfileService {
 
   updateProfile(id: number, item: object){
     if(this.getCurrentUser().roles[0]=='ROLE_EMPLOYEE'){
-      return this.http.put(`${this.basePath3}/${id}`,item,this.httpOptions)
+      return this.http.put(`${this.api.bakendLink()+this.urlEmployee}/${id}`,item,this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError)
       )
     }
     else{
-      return this.http.put(`${this.basePath}/${id}`,item,this.httpOptions)
+      return this.http.put(`${this.api.bakendLink()+this.urlClient}/${id}`,item,this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError)

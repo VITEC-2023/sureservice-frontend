@@ -1,5 +1,14 @@
-<h2 mat-dialog-title>Estas seguro de cancelar esta solicitud?</h2>
-<mat-dialog-actions>
-    <button mat-button mat-dialog-close cdkFocusInitial>Cancelar</button>
-    <button mat-button (click)="deleteRequest()">Confirmar</button>
-</mat-dialog-actions>
+<div *ngIf="cancel===false">
+    <h2 mat-dialog-title>¿Estas seguro de cancelar esta solicitud?</h2>
+    <mat-dialog-actions>
+        <button mat-raised-button mat-dialog-close cdkFocusInitial>Cancelar</button>
+        <button mat-raised-button (click)="deleteRequest()">Confirmar</button>
+    </mat-dialog-actions>
+</div>
+<div *ngIf="cancel">
+    <h2 mat-dialog-title>Solicitud cancelada correctamente</h2>
+    <mat-dialog-actions>
+        <button mat-raised-button mat-dialog-close cdkFocusInitial (click)="reload()">Cerrar</button>
+    </mat-dialog-actions>
+</div>
+
