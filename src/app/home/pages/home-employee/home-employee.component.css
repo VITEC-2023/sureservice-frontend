@@ -61,7 +61,36 @@
     margin: 10px auto;
   }
   
-  button{
+  .cancelButton{
+    color: #ffffff;
+    margin: 1rem 0;
+  }
+
+  .button{
     background-color: #447ED2;
     color: #ffffff;
+    margin-bottom: 1rem;
+  }
+
+  .confirmationButton{
+    background-color: #008000;
+    color: #ffffff;
+    margin-bottom: 1rem;
+  }
+
+  .ancho{
+    margin-top: 1rem;
+  }
+
+  .texto{
+    text-align: center;
+    margin-top: 2rem;
+  }
+
+  .actions{
+    width: 20%;
+    margin: 2rem auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
   }
