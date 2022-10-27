@@ -1,16 +1,18 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
 import {catchError, Observable, retry, throwError} from "rxjs";
+import {Api} from "../../API/api";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ServicesService {
 
-  basePath = 'https://sureservice.herokuapp.com/api/v1/services';
+  api = new Api()
+  url='services'
 
-  constructor(private http: HttpClient) { }
-  
+  constructor(private http: HttpClient ) { }
+
   httpOptions = {
     headers: new HttpHeaders({
       'Authorization': 'Bearer ' + this.getCurrentUser().token
@@ -37,7 +39,7 @@ export class ServicesService {
   }
 
   create(item: object):Observable<object> {
-    return this.http.post(this.basePath, item, this.httpOptions)
+    return this.http.post(this.api.bakendLink()+this.url, item, this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError)
@@ -45,7 +47,7 @@ export class ServicesService {
   }
 
   getAll() {
-    return this.http.get(this.basePath, this.httpOptions)
+    return this.http.get(this.api.bakendLink()+this.url, this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError)

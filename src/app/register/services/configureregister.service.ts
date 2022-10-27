@@ -1,15 +1,17 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { throwError, retry, catchError, Observable } from 'rxjs';
+import {Api} from "../../API/api";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ConfigureregisterService {
-  basePath = 'https://sureservice.herokuapp.com/api/v1/users/auth';
-  basePath2 = 'https://sureservice.herokuapp.com/api/v1/clients';
-  basePath3 = 'https://sureservice.herokuapp.com/api/v1/employees';
-  basePath4 = 'https://sureservice.herokuapp.com/api/v1/users';
+
+  api = new Api()
+  urlClients = 'clients'
+  urlEmployees = 'employees'
+  
   constructor(private http: HttpClient) { }
 
   httpOptions = {
@@ -27,18 +29,6 @@ export class ConfigureregisterService {
     return throwError( ()  => new Error('Something happened with request, please try again later'));
   }
 
-  signUp(user: object){
-    return this.http
-      .post(`${this.basePath}/sign-up`, user)
-      .pipe(retry(2), catchError(this.handleError));
-  }
-
-  signIn(user: object){
-    return this.http
-      .post(`${this.basePath}/sign-in`, user)
-      .pipe(retry(2), catchError(this.handleError));
-  }
-
   getCurrentToken(){
     let currentTokenString= localStorage.getItem('accessToken')
     if(currentTokenString){
@@ -49,7 +39,7 @@ export class ConfigureregisterService {
 
   createClient(item: object,id: any):Observable<object> {
     return this.http
-      .post(`${this.basePath2}/${id}`, item, this.httpOptions)
+      .post(`${this.api.bakendLink()+this.urlClients}/${id}`, item, this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError)
@@ -57,18 +47,11 @@ export class ConfigureregisterService {
   }
 
   createEmployee(item: object,userId: any,serviceId: any):Observable<object> {
-    return this.http.post(`${this.basePath3}/${userId}/${serviceId}`, item, this.httpOptions)
+    return this.http.post(`${this.api.bakendLink()+this.urlEmployees}/${userId}/${serviceId}`, item, this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError)
       )
   }
 
-  getAll() {
-    return this.http.get(this.basePath4, this.httpOptions)
-      .pipe(
-        retry(2),
-        catchError(this.handleError)
-      )
-  }
 }

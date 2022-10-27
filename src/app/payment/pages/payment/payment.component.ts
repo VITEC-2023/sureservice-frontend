@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PaymentService } from '../../services/payment.service';
-import { Request } from 'src/app/profile/model/request';
+import { Request } from 'src/app/model/request';
 
 interface Card {
   value: string;

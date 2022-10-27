@@ -26,6 +26,8 @@
         </mat-card-content>
         </mat-card>
 </div>
-<section class="button margin">
-    <button mat-raised-button (click)="addNewRequest()">Solicitar</button>
-</section>
+<div *ngIf="getCurrentRole() != 'ROLE_EMPLOYEE'" class="all">
+    <section class="button margin">
+        <button mat-raised-button (click)="addNewRequest()">Solicitar</button>
+    </section>
+</div>

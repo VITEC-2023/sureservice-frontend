@@ -11,6 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class RegisterComponent implements OnInit {
   floatLabelControl = new FormControl('employee')
+  hide = true
   id: number=0
 
   registerForm :FormGroup= this.builder.group({
@@ -19,22 +20,14 @@ export class RegisterComponent implements OnInit {
     typeUser: this.floatLabelControl,
   });
 
-  constructor(public builder: FormBuilder, public authService: RegisterService, public router: Router, private _snackBar: MatSnackBar) {
+  constructor(public builder: FormBuilder, public authService: RegisterService, public router: Router) {
 
   }
   ngOnInit(): void {
   }
 
-  get name() { return this.registerForm.controls['name'];}
   get email() { return this.registerForm.controls['email'];}
   get password() { return this.registerForm.controls['password'];}
-  get age() { return this.registerForm.controls['age'];}
-  get number() { return this.registerForm.controls['number'];}
-
-
-  openSnakbar(){
-    this._snackBar.open("Something went wrong while creating a new user", "Close");
-  }
 
   addNewuser(){
     var role;
