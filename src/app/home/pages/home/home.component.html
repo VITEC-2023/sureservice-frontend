@@ -4,17 +4,18 @@
 </div>
 
 <mat-divider></mat-divider>
-<div class="Ccardalone" *ngIf="request.length === 0">
-  <h1>VAYA, PARECE QUE AUN NO HA REALIZADO NINGUNA SOLICITUD</h1>
-</div>
 
-<div class="actions" *ngIf="request.length !== 0">
+<div class="actions">
   <button class="button-show" id="mostrar" mat-raised-button *ngIf="show" (click)="mostrar()">Ver pagados</button>
   <button class="button-show" id="mostrar" mat-raised-button *ngIf="!show" (click)="mostrar()">Ver no pagados</button>
 </div>
 
+<div class="Ccardalone" *ngIf="requestPaid.length===0 && !show">
+  <h1>AÚN NO HAY NINGUNA SOLICITUD PAGADA</h1>
+</div>
+
 <div class="content" *ngIf="!show">
-  <div *ngFor="let item of request">
+  <div *ngFor="let item of requestPaid">
     <mat-card class="Ccard" *ngIf="item.paid">
         <img class="Ccard-image" mat-card-image [src]="item.urlToImage" alt="Photo of a employee">
         <mat-card-header>
@@ -22,41 +23,52 @@
         </mat-card-header>
 
         <mat-card-content>
+          <h4 class="text">Empleado:</h4>
+          {{item.employee.name}}
+          <h4 class="text">Descripción:</h4>
           {{item.description}}
         </mat-card-content>
 
-        <div *ngIf="item.paid==false">
-          <mat-card-actions>
-            <button class="button" mat-raised-button [routerLink]="['/payment', item.id]">Pay</button>
-            <button class="button" mat-raised-button (click)="openDialog(item.id)">Cancel</button>
-          </mat-card-actions>
-        </div>
-
-        <h2 *ngIf="item.paid">Gracias por usar nuestros servicios!</h2>
+        <h2>Gracias por usar nuestros servicios!</h2>
     </mat-card>
   </div>
 </div>
 
+<div class="Ccardalone" *ngIf="requestNoPaid.length===0 && show">
+  <h1>AÚN NO HA REALIZADO NINGUNA SOLICITUD</h1>
+</div>
+
 <div class="content" *ngIf="show">
-  <div *ngFor="let item of request">
-    <mat-card class="Ccard" *ngIf="item.paid===false">
+  <div *ngFor="let item of requestNoPaid">
+    <mat-card class="Ccard" >
         <img class="Ccard-image" mat-card-image [src]="item.urlToImage" alt="Photo of a employee">
         <mat-card-header>
           <mat-card-title>{{item.title}}</mat-card-title>
         </mat-card-header>
 
         <mat-card-content>
+          <h4 class="text">Empleado:</h4>
+          {{item.employee.name}}
+          <h4 class="text">Descripción:</h4>
           {{item.description}}
+          <h4 class="text">Contacto:</h4>
+          {{item.employee.phone}}
+          <div *ngIf="item.price!=0">
+            <h4 class="text" >Precio:</h4>
+            {{item.price}}
+          </div>
         </mat-card-content>
 
-        <div *ngIf="item.paid==false">
+        <div>
           <mat-card-actions>
-            <button class="button" mat-raised-button [routerLink]="['/payment', item.id]">Pagar</button>
-            <button class="button" mat-raised-button (click)="openDialog(item.id)">Cancelar</button>
+            <div class="buttons">
+              <button *ngIf="item.price!=0" class="button" mat-raised-button [routerLink]="['/payment', item.id]" color="primary">Pagar</button>
+              <button class="button" mat-raised-button (click)="openDialog(item.id)" color="warn">Cancelar</button>
+            </div>
+            <p class="information" *ngIf="item.price==0">Espere a que el tecnico confirme su pedido para realizar el pago.</p>
           </mat-card-actions>
         </div>
 
-        <h2 *ngIf="item.paid">Gracias por usar nuestros servicios!</h2>
     </mat-card>
   </div>
 </div>

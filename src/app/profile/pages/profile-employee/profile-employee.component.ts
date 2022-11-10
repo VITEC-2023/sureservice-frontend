@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ProfileService } from '../../services/profile.service';
 import {ActivatedRoute, Router} from "@angular/router";
-import { Employee } from '../../model/employee';
-import { Request } from '../../model/request';
-import { Client } from '../../model/client';
+import { Employee } from '../../../model/employee';
+import { Client } from '../../../model/client';
 import {MatDialog} from '@angular/material/dialog';
 import { AddrequestDialogComponent } from 'src/app/dialogs/pages/addrequest-dialog/addrequest-dialog.component';
-import { Service } from '../../model/service';
+import { Service } from '../../../model/service';
 
 @Component({
   selector: 'app-profile-employee',
@@ -54,22 +53,32 @@ export class ProfileEmployeeComponent implements OnInit {
     })
   }
 
+  getCurrentRole(){
+    let currentUserString= localStorage.getItem('currentUser')
+    if(currentUserString){
+      //console.log(`current user:' ${currentUserString}`)
+      let currentUser = (JSON.parse(currentUserString));
+      //console.log(currentUser)
+      return currentUser.roles[0];
+    }else return null
+  }
+
   addNewRequest() {
-    this.newProfileEService.getById(this.getCurrentUserId()).subscribe( (response: any) => {
+    this.newProfileEService.getClient(this.getCurrentUserId()).subscribe( (response: any) => {
       this.newProfileEService.getByEmployeeId(this.route.snapshot.paramMap.get('id')).subscribe( (result: any) => {
         const request = {
-          title: `Servicio solicitado por ${response.name}`,
-          description: `Servicio de ${result.name}`,
+          title: `Servicio de ${result.service.name}`,
+          description: "",
           urlToImage: result.service.urlToImage,
+          price: '0',
           paid: false,
         }
-        localStorage.setItem('itemDataa', JSON.stringify(request));
+        localStorage.setItem('requestData', JSON.stringify(request));
         localStorage.setItem('clientId',JSON.stringify(response.id))
         localStorage.setItem('employeeId',JSON.stringify(result.id))
-        localStorage.setItem('serviceId',JSON.stringify(result.service.id))
         const dialogRef = this.dialog.open(AddrequestDialogComponent);
         dialogRef.afterClosed().subscribe(result => {
-    });
+        });
       })
     })
   }

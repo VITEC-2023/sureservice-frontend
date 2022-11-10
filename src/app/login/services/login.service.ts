@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
 import {catchError, Observable, retry, throwError} from "rxjs";
-import {User} from "../model/user";
+import {Api} from "../../API/api";
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  basePath = 'https://sureservice.herokuapp.com/api/v1/users/auth';
+  api = new Api()
+  url = 'users/auth'
 
   constructor(private http: HttpClient) { }
 
@@ -17,8 +18,6 @@ export class LoginService {
       'Content-Type': 'application/json'
     })
   }
-
-  currentUser!: User;
 
   handleError(error: HttpErrorResponse) {
     if(error.error instanceof ErrorEvent) {
@@ -31,7 +30,7 @@ export class LoginService {
 
   signIn(user: any){
     return this.http
-      .post(`${this.basePath}/sign-in`, user)
+      .post(`${this.api.bakendLink()+this.url}/sign-in`, user)
       .pipe(retry(2), catchError(this.handleError));
   }
 }

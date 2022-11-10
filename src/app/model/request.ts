@@ -1,6 +1,5 @@
 import { Client } from "./client";
 import { Employee } from "./employee";
-import { Service } from "./service";
 
 export class Request {
     id: number;
@@ -8,21 +7,18 @@ export class Request {
     description: string;
     urlToImage: string;
     paid: boolean;
+    price: number;
+    confirmation: boolean;
     client: Client;
     employee: Employee;
-    service: Service;
     constructor() {
       this.id = 0;
       this.title = "";
       this.description = "";
       this.urlToImage= "";
       this.paid=false;
-      this.service={
-        id:0,
-        name:"",
-        urlToImage:"",
-        description:""
-      }
+      this.price=0;
+      this.confirmation=false;
       this.client={
         id:0,
         name:"",

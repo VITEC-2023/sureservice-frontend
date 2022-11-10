@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
 import {catchError, Observable, retry, throwError} from "rxjs";
+import {Api} from "../../API/api";
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmployeesService {
 
-  basePath = 'https://sureservice.herokuapp.com/api/v1/employees';
+  api = new Api()
+  urlEmployee='employees'
 
   constructor(private http: HttpClient) { }
 
@@ -28,7 +30,7 @@ export class EmployeesService {
     return throwError('Something happened with this request. Please try again later.');
   }
 
-  
+
   getCurrentUser(){
     let currentUserString= localStorage.getItem('currentUser')
     if(currentUserString){
@@ -38,7 +40,7 @@ export class EmployeesService {
   }
 
   getAll() {
-    return this.http.get(this.basePath, this.httpOptions)
+    return this.http.get(this.api.bakendLink()+this.urlEmployee, this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError)
@@ -46,7 +48,7 @@ export class EmployeesService {
   }
 
   getById(id: any) {
-    return this.http.get(`${this.basePath}/services/${id}`, this.httpOptions)
+    return this.http.get(`${this.api.bakendLink()+this.urlEmployee}/services/${id}`, this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError)

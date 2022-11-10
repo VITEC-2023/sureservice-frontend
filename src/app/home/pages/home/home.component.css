@@ -1,4 +1,8 @@
 /*content*/
+.text{
+  font-weight: bold;
+  margin: 0;
+}
 
 .content{
   display: flex;
@@ -56,6 +60,19 @@
 
 .actions{
   margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.information{
+  margin-top: 2rem;
+  margin-bottom: 0;
+  font-weight: bold;
+  text-align: center;
+}
+
+.buttons{
   display: flex;
   align-items: center;
   justify-content: center;

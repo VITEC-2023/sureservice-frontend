@@ -1,5 +1,3 @@
-import { Service } from "./service";
-import { User } from "./user";
 export class Employee {
     name: string;
     age: number;
@@ -7,6 +5,7 @@ export class Employee {
     altphone: string;
     urlToImage: string;
     description: string;
+    
     constructor() {
       this.name = "";
       this.age = 0;

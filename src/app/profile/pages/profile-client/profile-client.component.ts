@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Client } from '../../model/client';
+import { Client } from '../../../model/client';
 import { ProfileService } from '../../services/profile.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { ProfileService } from '../../services/profile.service';
 export class ProfileClientComponent implements OnInit {
 
   client: Client = new Client();
-  
+
   constructor(private route: ActivatedRoute, private newProfileEService: ProfileService, public router: Router) { }
 
   ngOnInit(): void {

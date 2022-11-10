@@ -12,6 +12,8 @@ import { CancelDialogComponent } from 'src/app/dialogs/pages/cancel-dialog/cance
 export class HomeComponent implements OnInit {
   show:boolean=true;
   request:Array<any> = [];
+  requestPaid:Array<any> = [];
+  requestNoPaid:Array<any> = [];
   constructor(private newHomeService: HomeService, public router: Router, public dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -27,8 +29,11 @@ export class HomeComponent implements OnInit {
   }
 
   getAllRequests(id:any) {
-    this.newHomeService.getById(id).subscribe( (response: any) => {
-      this.request = response;
+    this.newHomeService.getAllRequestByPaid(true,id).subscribe( (response: any) => {
+      this.requestPaid = response;
+    })
+    this.newHomeService.getAllRequestByPaid(false,id).subscribe( (response: any) => {
+      this.requestNoPaid = response;
     })
   }
 
@@ -48,4 +53,5 @@ export class HomeComponent implements OnInit {
   mostrar(){
     this.show=!this.show
   }
+
 }

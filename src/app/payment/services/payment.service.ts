@@ -1,19 +1,21 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
 import {catchError, retry, throwError} from "rxjs";
+import {Api} from "../../API/api";
 
 @Injectable({
   providedIn: 'root'
 })
 export class PaymentService {
 
-  basePath = 'https://sureservice.herokuapp.com/api/v1/requests';
+  api = new Api()
+  urlRequest='requests'
 
   constructor(private http: HttpClient) { }
 
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json'
+      'Authorization': 'Bearer ' + this.getCurrentToken()
     })
   }
 
@@ -30,7 +32,7 @@ export class PaymentService {
   }
 
   getAll() {
-    return this.http.get(this.basePath, this.httpOptions)
+    return this.http.get(this.api.bakendLink()+this.urlRequest, this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError)
@@ -38,7 +40,7 @@ export class PaymentService {
   }
 
   getByRequestById(id: any) {
-    return this.http.get(this.basePath+"/"+id, this.httpOptions)
+    return this.http.get(this.api.bakendLink()+this.urlRequest+"/"+id, this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError)
@@ -46,11 +48,19 @@ export class PaymentService {
   }
 
   updateRequest(id: number, item: object){
-    return this.http.put(`${this.basePath}/${id}`,item,this.httpOptions)
+    return this.http.put(`${this.api.bakendLink()+this.urlRequest}/${id}`,item,this.httpOptions)
     .pipe(
       retry(2),
       catchError(this.handleError)
     )
+  }
+
+  getCurrentToken(){
+    let currentTokenString= localStorage.getItem('accessToken')
+    if(currentTokenString){
+      let currentToken = (JSON.parse(currentTokenString));
+      return currentToken;
+    }else return null
   }
 
 }

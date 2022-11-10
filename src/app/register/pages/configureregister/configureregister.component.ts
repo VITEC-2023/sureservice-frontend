@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { Client } from '../../model/client';
 import { Employee } from '../../model/employee';
 import { ConfigureregisterService } from '../../services/configureregister.service';
-import { RegisterService } from '../../services/register.service';
 
 @Component({
   selector: 'app-configureregister',
@@ -71,13 +70,13 @@ export class ConfigureregisterComponent implements OnInit {
   addNewuser(){
     if (this.getCurrentUser().roles[0]=="ROLE_CLIENT"){
       this.authService.createClient(this.registerClient(),this.getCurrentUser().id).subscribe( (source: any) => {
+        this.router.navigate(['home']).then();
       })
-      this.router.navigate(['home']).then();
     }
     else {
       this.authService.createEmployee(this.registerEmployee(),this.getCurrentUser().id,this.registerForm.value.serviceId).subscribe( (source2: any) => {
+        this.router.navigate(['homeemployee']).then();
       })
-      this.router.navigate(['homeemployee']).then();
     }
   }
 }
