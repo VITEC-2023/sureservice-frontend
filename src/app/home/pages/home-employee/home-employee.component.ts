@@ -13,13 +13,8 @@ import { Request } from 'src/app/model/request';
   styleUrls: ['./home-employee.component.css']
 })
 export class HomeEmployeeComponent implements OnInit {
-  show=true
   displayedColumns: string[] = ['title','description', 'clientId', 'serviceId', 'paid', 'price', 'buttons'];
-  displayedColumnsPaid: string[] = ['title','description', 'clientId', 'serviceId', 'paid', 'price'];
   request:Array<any> = [];
-  requestPaid:Array<any> = [];
-  requestNoPaid:Array<any> = [];
-  requestConfirm:Array<any> = [];
   employee: Employee=new Employee();
 
   priceForm :FormGroup= this.builder.group({
@@ -43,11 +38,8 @@ export class HomeEmployeeComponent implements OnInit {
   }
 
   getAllRequests(id:any) {
-    this.newHomeService.getAllRequestByPaid(true,id).subscribe( (response: any) => {
-      this.requestPaid = response;
-    })
     this.newHomeService.getAllRequestByPaid(false,id).subscribe( (response: any) => {
-      this.requestNoPaid = response;
+      this.request = response;
     })
   }
 
@@ -83,9 +75,5 @@ export class HomeEmployeeComponent implements OnInit {
     item.confirmation=true
     this.newHomeService.updateRequest(item.id,item).subscribe( (response: any) => {
     })
-  }
-
-  mostrar(){
-    this.show=!this.show
   }
 }

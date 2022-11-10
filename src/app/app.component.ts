@@ -23,9 +23,14 @@ export class AppComponent {
 
   signOut(){
     localStorage.removeItem('currentUser');
+    localStorage.removeItem('requestAlready');
     localStorage.removeItem('accessToken');
     this.router.navigate(['/login']).then();
     console.log('Singout')
+  }
+
+  deleteRequest(){
+    localStorage.removeItem('requestAlready');
   }
 
   opened= false;

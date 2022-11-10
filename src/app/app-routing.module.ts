@@ -13,6 +13,7 @@ import { ProfileComponent } from './profile/pages/profile/profile.component';
 import { RegisterComponent } from './register/pages/register/register.component';
 import { ServicesComponent } from './services/pages/services/services.component';
 import { ConfigureregisterComponent } from './register/pages/configureregister/configureregister.component';
+import { RequestComponent } from './request/pages/request/request.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -39,6 +40,8 @@ const routes: Routes = [
   { path: 'profileemployee',component:ProfileEmployeeUserComponent},
   { path: '', redirectTo: '/homeemployee', pathMatch: 'full' },
   { path: 'homeemployee',component:HomeEmployeeComponent},
+  { path: '', redirectTo: '/request', pathMatch: 'full' },
+  { path: 'request',component:RequestComponent},
 ];
 
 @NgModule({

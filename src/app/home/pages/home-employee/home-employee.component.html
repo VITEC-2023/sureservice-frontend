@@ -4,17 +4,12 @@
 </div>
 <mat-divider></mat-divider>
 
-<div class="actions">
-    <button class="button-show" id="mostrar" mat-raised-button *ngIf="show" (click)="mostrar()">Historial</button>
-    <button class="button-show" id="mostrar" mat-raised-button *ngIf="!show" (click)="mostrar()">Ver no pagados</button>
-  </div>
-
-<div class="Ccardalone" *ngIf="requestNoPaid.length===0 && show">
+<div class="Ccardalone" *ngIf="request.length===0">
     <h1>AÚN NO HA RECIBIDO NINGUNA SOLICITUD</h1>
 </div>
 
-<div class="width" *ngIf="requestNoPaid.length!=0">
-    <table mat-table [dataSource]="requestNoPaid" class="mat-elevation-z8" *ngIf="show">
+<div class="width" *ngIf="request.length!=0">
+    <table mat-table [dataSource]="request" class="mat-elevation-z8">
         <ng-container matColumnDef="title">
             <th mat-header-cell *matHeaderCellDef> Titulo </th>
             <td mat-cell *matCellDef="let element"> {{element.title}} </td>
@@ -72,46 +67,5 @@
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-</div>
-
-<div class="Ccardalone" *ngIf="requestPaid.length===0 && !show">
-    <h1>AÚN NO HAY NINGUNA SOLICITUD PROCESADA</h1>
-</div>
-
-<div class="width" *ngIf="requestPaid.length!=0" >
-    <table mat-table [dataSource]="requestPaid" class="mat-elevation-z8" *ngIf="!show">
-        <ng-container matColumnDef="title">
-            <th mat-header-cell *matHeaderCellDef> Titulo </th>
-            <td mat-cell *matCellDef="let element"> {{element.title}} </td>
-        </ng-container>
-        <ng-container matColumnDef="description">
-            <th mat-header-cell *matHeaderCellDef> Descripción </th>
-            <td mat-cell *matCellDef="let element"> {{element.description}} </td>
-        </ng-container>
-        <ng-container matColumnDef="clientId">
-            <th mat-header-cell *matHeaderCellDef> Cliente </th>
-            <td mat-cell *matCellDef="let element"> <a [routerLink]="['/client/information', element.client.user.id]">{{element.client.name}}</a></td>
-        </ng-container>
-        <ng-container matColumnDef="serviceId">
-            <th mat-header-cell *matHeaderCellDef> Servicio</th>
-            <td mat-cell *matCellDef="let element"> {{element.employee.service.name}} </td>
-        </ng-container>
-        <ng-container matColumnDef="paid">
-            <th mat-header-cell *matHeaderCellDef> Estado</th>
-            <td mat-cell *matCellDef="let element">
-                El servicio ha sido pagado
-            </td>
-        </ng-container>
-        <ng-container matColumnDef="price">
-            <th mat-header-cell *matHeaderCellDef> Precio</th>
-            <td mat-cell *matCellDef="let element"> 
-                <div>
-                    {{element.price}} 
-                </div>
-            </td>
-        </ng-container>
-        <tr mat-header-row *matHeaderRowDef="displayedColumnsPaid"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumnsPaid;"></tr>
     </table>
 </div>

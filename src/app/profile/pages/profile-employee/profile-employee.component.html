@@ -23,11 +23,19 @@
         <mat-card-content>
             <h2>Detalles</h2>
             <h3>{{employee.description}}</h3>
+            <h2>Trabajos realizados</h2>
+            <button mat-raised-button (click)="openInformationDialog(employee.id)">CLICK PARA VER LOS TRABAJOS REALIZADOS</button>
         </mat-card-content>
         </mat-card>
 </div>
-<div *ngIf="getCurrentRole() != 'ROLE_EMPLOYEE'" class="all">
+<div *ngIf="getCurrentRole() != 'ROLE_EMPLOYEE' && getIfRequestAlreadyCreated() == null" class="all">
     <section class="button margin">
         <button mat-raised-button (click)="addNewRequest()">Solicitar</button>
+    </section>
+</div>
+
+<div *ngIf="getCurrentRole() != 'ROLE_EMPLOYEE' && getIfRequestAlreadyCreated()" class="all">
+    <section class="button margin">
+        <button mat-raised-button (click)="return()" [routerLink]="['/home']">Regresar</button>
     </section>
 </div>

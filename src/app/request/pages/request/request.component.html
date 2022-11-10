@@ -1,0 +1,60 @@
+<div class="content-text">
+    <h1>Historial</h1>
+</div>
+<mat-divider></mat-divider>
+
+<div class="actions">
+    <button mat-raised-button (click)="done=false">Trabajos pendientes</button>
+    <button mat-raised-button (click)="done=true">Trabajos realizados</button>
+</div>
+
+<div class="Ccardalone" *ngIf="requestNotDone.length===0 && done==false">
+    <h1>AÚN NO RECIBIO EL PAGO DE NINGUNA SOLICITUD</h1>
+</div>
+
+<div class="content" *ngIf="done==false">
+    <div *ngFor="let item of requestNotDone">
+        <mat-card class="RequestCard">
+            <mat-card-header>
+                <mat-card-title>{{item.title}}</mat-card-title>
+            </mat-card-header>
+            <img mat-card-image [src]="item.client.urlToImage" alt="Photo of a Client">
+            <mat-card-content>
+            <h4 class="text">Descripción:</h4>
+            <p>{{item.description}}</p>
+            <h4 class="text">Cliente:</h4>
+            <a [routerLink]="['/client/information', item.client.user.id]">{{item.client.name}}</a>
+            </mat-card-content>
+            <mat-card-actions class="button">
+            <button mat-raised-button color="primary" (click)="openDialog(item.id)">SE REALIZÓ</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>
+
+<div class="Ccardalone" *ngIf="requestDone.length===0 && done">
+    <h1>AÚN NO HA REALIZADO NINGUNA SOLICITUD</h1>
+</div>
+
+<div class="content" *ngIf="done">
+    <div *ngFor="let item of requestDone">
+        <mat-card class="RequestCard">
+            <mat-card-header>
+                <mat-card-title>{{item.title}}</mat-card-title>
+            </mat-card-header>
+            <img mat-card-image [src]="item.client.urlToImage" alt="Photo of a Client">
+            <mat-card-content>
+            <h4 class="text">Descripción:</h4>
+            <p>{{item.description}}</p>
+            <h4 class="text">Cliente:</h4>
+            <a [routerLink]="['/client/information', item.client.user.id]">{{item.client.name}}</a>
+            </mat-card-content>
+            <mat-chip-list class="button">
+                <mat-chip class="chips">
+                    COMPLETADO
+                    <mat-icon class="chip-icon">check</mat-icon>
+                </mat-chip>
+            </mat-chip-list>
+        </mat-card>
+    </div>
+</div>
