@@ -1,0 +1,13 @@
+<div *ngIf="done===false">
+    <h2 mat-dialog-title>¿Completaste esta solicitud?</h2>
+    <mat-dialog-actions>
+        <button mat-raised-button mat-dialog-close cdkFocusInitial>No</button>
+        <button mat-raised-button (click)="updateRequest()">Sí</button>
+    </mat-dialog-actions>
+</div>
+<div *ngIf="done">
+    <h2 mat-dialog-title>Solicitud actualizada correctamente</h2>
+    <mat-dialog-actions>
+        <button mat-raised-button mat-dialog-close cdkFocusInitial (click)="reload()">Cerrar</button>
+    </mat-dialog-actions>
+</div>

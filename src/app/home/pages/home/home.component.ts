@@ -10,6 +10,7 @@ import { CancelDialogComponent } from 'src/app/dialogs/pages/cancel-dialog/cance
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  requestAlready=false;
   show:boolean=true;
   request:Array<any> = [];
   requestPaid:Array<any> = [];
@@ -52,6 +53,11 @@ export class HomeComponent implements OnInit {
   
   mostrar(){
     this.show=!this.show
+  }
+
+  viewProfile(){
+    this.requestAlready=true
+    localStorage.setItem('requestAlready', JSON.stringify(this.requestAlready));
   }
 
 }

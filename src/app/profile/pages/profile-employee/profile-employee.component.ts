@@ -6,6 +6,7 @@ import { Client } from '../../../model/client';
 import {MatDialog} from '@angular/material/dialog';
 import { AddrequestDialogComponent } from 'src/app/dialogs/pages/addrequest-dialog/addrequest-dialog.component';
 import { Service } from '../../../model/service';
+import { EmployeeworkComponent } from 'src/app/dialogs/pages/employeework/employeework.component';
 
 @Component({
   selector: 'app-profile-employee',
@@ -37,6 +38,14 @@ export class ProfileEmployeeComponent implements OnInit {
     this.newProfileEService.getAllRequest().subscribe( (response: any) => {
       this.requests = response;
     })
+  }
+
+  getIfRequestAlreadyCreated(){
+    let currentRequest= localStorage.getItem('requestAlready')
+    if(currentRequest){
+      let currentUser = (JSON.parse(currentRequest));
+      return currentUser;
+    }else return null
   }
 
   getCurrentUserId(){
@@ -83,4 +92,16 @@ export class ProfileEmployeeComponent implements OnInit {
     })
   }
 
+  return(){
+    localStorage.removeItem('requestAlready');
+  }
+
+  openInformationDialog(id:number) {
+    localStorage.setItem('employeeId', JSON.stringify(id));
+    const dialogRef = this.dialog.open(EmployeeworkComponent, {
+      width: '500px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+    });
+  }
 }

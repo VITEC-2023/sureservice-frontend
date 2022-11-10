@@ -26,6 +26,8 @@ import { AppRoutingModule } from './app-routing.module';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatChipsModule} from '@angular/material/chips';
+
 
 import { LoginComponent } from './login/pages/login/login.component';
 import { RegisterComponent } from './register/pages/register/register.component';
@@ -41,6 +43,9 @@ import { CancelDialogComponent } from './dialogs/pages/cancel-dialog/cancel-dial
 import { AddrequestDialogComponent } from './dialogs/pages/addrequest-dialog/addrequest-dialog.component';
 import { ConfigureregisterComponent } from './register/pages/configureregister/configureregister.component';
 import { ProfileClientComponent } from './profile/pages/profile-client/profile-client.component';
+import { RequestComponent } from './request/pages/request/request.component';
+import { CompleterequestDialogComponent } from './dialogs/pages/completerequest-dialog/completerequest-dialog.component';
+import { EmployeeworkComponent } from './dialogs/pages/employeework/employeework.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +63,10 @@ import { ProfileClientComponent } from './profile/pages/profile-client/profile-c
     CancelDialogComponent,
     AddrequestDialogComponent,
     ConfigureregisterComponent,
-    ProfileClientComponent
+    ProfileClientComponent,
+    RequestComponent,
+    CompleterequestDialogComponent,
+    EmployeeworkComponent,
   ],
   imports: [
     BrowserModule,
@@ -87,7 +95,8 @@ import { ProfileClientComponent } from './profile/pages/profile-client/profile-c
     MatTableModule,
     MatSidenavModule,
     MatDialogModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatChipsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
