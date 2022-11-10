@@ -6,9 +6,9 @@
 <mat-toolbar class="nav-bar" *ngIf="(router.url !== '/login' && router.url !== '/configure')">
     <span class="spaces">Sure Service</span>
     <span class="spacer"></span>
-    <a class="text" [routerLink]="'/home'" href="#">Inicio</a>
-    <a class="text" [routerLink]="'/profile'" href="#">Perfil</a>
-    <a class="text" [routerLink]="'/services'" href="#">Servicios</a>
+    <a class="text" (click)="deleteRequest()" [routerLink]="'/home'" href="#">Inicio</a>
+    <a class="text" (click)="deleteRequest()" [routerLink]="'/profile'" href="#">Perfil</a>
+    <a class="text" (click)="deleteRequest()" [routerLink]="'/services'" href="#">Servicios</a>
     <a class="text" (click)="signOut()" href="#">Log-out</a>
   </mat-toolbar>
   <router-outlet></router-outlet>
@@ -19,8 +19,8 @@
       <span class="spaces">Sure Service</span>
       <span class="spacer"></span>
       <a class="text" [routerLink]="'/homeemployee'" href="#">Inicio</a>
+      <a class="text" [routerLink]="'/request'" href="#">Solicitudes</a>
       <a class="text" [routerLink]="'/profileemployee'" href="#">Perfil</a>
-      <a class="text" [routerLink]="'/services'" href="#">Servicios</a>
       <a class="text" (click)="signOut()" href="#">Log-out</a>
     </mat-toolbar>
     <router-outlet></router-outlet>
