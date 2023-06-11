@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from "@angular/forms";
 import { RegisterService } from '../../services/register.service';
 import { Router } from "@angular/router";
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -11,12 +11,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class RegisterComponent {
   userId = 0;
-  floatLabelControl = new FormControl('employee');
+  floatLabelControl = new UntypedFormControl('employee');
   hide = true;
   hide2 = true;
   id: number = 0;
 
-  registerForm: FormGroup = this.builder.group({
+  registerForm: UntypedFormGroup = this.builder.group({
     name: ['', [Validators.required, Validators.maxLength(10)]],
     lastName: ['', [Validators.required, Validators.maxLength(20)]],
     email: ['', [Validators.required, Validators.email]],
@@ -34,7 +34,7 @@ export class RegisterComponent {
     typeService: ['', Validators.required],
   }, { validator: this.confirmedValidator('password', 'confirmPassword') });
 
-  constructor(public builder: FormBuilder, public service: RegisterService, public router: Router) {}
+  constructor(public builder: UntypedFormBuilder, public service: RegisterService, public router: Router) {}
 
   get name() {
     return this.registerForm.controls['name'];
@@ -104,7 +104,7 @@ export class RegisterComponent {
   }
 
   confirmedValidator(controlName: string, matchingControlName: string) {
-    return (formGroup: FormGroup) => {
+    return (formGroup: UntypedFormGroup) => {
       const control = formGroup.controls[controlName];
       const matchingControl = formGroup.controls[matchingControlName];
       if (

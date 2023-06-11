@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProfileService } from 'src/app/profile/services/profile.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Request } from 'src/app/model/request';
 @Component({
   selector: 'app-addrequest-dialog',
@@ -11,10 +11,10 @@ import { Request } from 'src/app/model/request';
 export class AddrequestDialogComponent implements OnInit {
   created:boolean=false
   request:Request=new Request()
-  descriptionForm :FormGroup= this.builder.group({
+  descriptionForm :UntypedFormGroup= this.builder.group({
     description: ['', {validators: [Validators.required, Validators.maxLength(1000)], updateOn: 'change'}],
   });
-  constructor(private newProfileEService: ProfileService, public router: Router,public builder: FormBuilder) { }
+  constructor(private newProfileEService: ProfileService, public router: Router,public builder: UntypedFormBuilder) { }
 
   ngOnInit(): void {
     this.request=this.getCurrentitemData()

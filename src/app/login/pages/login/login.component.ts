@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {UntypedFormBuilder, UntypedFormGroup, Validators} from "@angular/forms";
 import {LoginService} from "../../services/login.service";
 import {Router} from "@angular/router";
 
@@ -17,12 +17,12 @@ export class LoginComponent {
   info=this.text[0];
   hide = true;
 
-  loginForm :FormGroup= this.builder.group({
+  loginForm :UntypedFormGroup= this.builder.group({
     email: ['', [Validators.email, Validators.required]],
     password: ['', [Validators.required, Validators.minLength(6)]],
   });
 
-  constructor(public builder: FormBuilder, public authService: LoginService, public router: Router) {
+  constructor(public builder: UntypedFormBuilder, public authService: LoginService, public router: Router) {
 
   }
 

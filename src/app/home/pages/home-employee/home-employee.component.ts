@@ -4,7 +4,7 @@ import { HomeService } from '../../services/home.service';
 import {MatDialog} from '@angular/material/dialog';
 import { CancelDialogComponent } from 'src/app/dialogs/pages/cancel-dialog/cancel-dialog.component';
 import { Employee } from 'src/app/model/employee';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Request } from 'src/app/model/request';
 
 @Component({
@@ -17,11 +17,11 @@ export class HomeEmployeeComponent implements OnInit {
   request:Array<any> = [];
   employee: Employee=new Employee();
 
-  priceForm :FormGroup= this.builder.group({
+  priceForm :UntypedFormGroup= this.builder.group({
     price: ['', {validators: [Validators.pattern('^[0-9]*$')], updateOn: 'change'}]
   });
 
-  constructor(public builder: FormBuilder, private newHomeService: HomeService, public router: Router, public dialog: MatDialog) { }
+  constructor(public builder: UntypedFormBuilder, private newHomeService: HomeService, public router: Router, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getByEmployeeId()

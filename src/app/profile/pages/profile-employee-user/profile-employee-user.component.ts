@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { UntypedFormGroup, Validators, UntypedFormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Employee } from '../../../model/employee';
 import { ProfileService } from '../../services/profile.service';
@@ -17,7 +17,7 @@ export class ProfileEmployeeUserComponent implements OnInit {
   employee:Employee= new Employee();
   itemData: Employee = new Employee();
 
-  profileForm :FormGroup= this.builder.group({
+  profileForm :UntypedFormGroup= this.builder.group({
     number: ['', {validators: [Validators.pattern('^[0-9]*$'), Validators.maxLength(9),Validators.minLength(9)], updateOn: 'change'}],
     altnumber: ['', {validators: [Validators.pattern('^[0-9]*$'), Validators.maxLength(5),Validators.minLength(5)], updateOn: 'change'}],
     description: ['', {validators: [Validators.maxLength(500)], updateOn: 'change'}],
@@ -26,7 +26,7 @@ export class ProfileEmployeeUserComponent implements OnInit {
     name: ['', {validators: [Validators.maxLength(30),Validators.minLength(6)], updateOn: 'change'}]
   });
 
-  constructor(public builder: FormBuilder, private newProfileService: ProfileService, public router: Router, private _snackBar: MatSnackBar) { }
+  constructor(public builder: UntypedFormBuilder, private newProfileService: ProfileService, public router: Router, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.getProfiles();
