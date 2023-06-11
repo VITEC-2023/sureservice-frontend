@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Client } from '../../model/client';
@@ -13,18 +13,18 @@ import { ConfigureregisterService } from '../../services/configureregister.servi
 })
 export class ConfigureregisterComponent implements OnInit {
 
-  selected = new FormControl(1)
+  selected = new UntypedFormControl(1)
   client:Client= new Client();
   employee:Employee= new Employee();
 
-  registerForm :FormGroup= this.builder.group({
+  registerForm :UntypedFormGroup= this.builder.group({
     name: ['', [Validators.required, Validators.minLength(6)]],
     age: ['', {validators: [Validators.required, Validators.pattern('^[0-9]*$')], updateOn: 'change'}],
     number: ['', {validators: [Validators.required, Validators.pattern('^[0-9]*$'), Validators.maxLength(9),Validators.minLength(9)], updateOn: 'change'}],
     serviceId: this.selected
   });
 
-  constructor(public builder: FormBuilder, public authService: ConfigureregisterService, public router: Router, private _snackBar: MatSnackBar) {
+  constructor(public builder: UntypedFormBuilder, public authService: ConfigureregisterService, public router: Router, private _snackBar: MatSnackBar) {
 
   }
   ngOnInit(): void {

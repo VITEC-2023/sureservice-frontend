@@ -8,11 +8,12 @@
     <mat-card class="Ccard" *ngFor="let service of services">
         <img class="Ccard-image" mat-card-image [src]="service.urlToImage" alt="Photo of a service">
         <mat-card-content>
-          <p> {{service.name}}</p>
-          <p> {{service.description}}</p>
+            <p> {{service.name}}</p>
+            <p> {{service.description}}</p>
         </mat-card-content>
         <mat-card-actions>
-            <button class="button"  [routerLink]="['/employees', service.id]" mat-raised-button>Ver todos los empleados</button>
+            <button class="button" [routerLink]="['/employees', service.id]" mat-raised-button>Ver todos los
+                empleados</button>
         </mat-card-actions>
-    </mat-card>         
+    </mat-card>
 </div>

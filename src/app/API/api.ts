@@ -2,6 +2,6 @@
 export class Api{
   constructor() {}
   public bakendLink(){
-    return "https://sureservice.herokuapp.com/api/v1/"
+    return "https://sureservice-backend-production.up.railway.app/api/v1/"
   }
 }

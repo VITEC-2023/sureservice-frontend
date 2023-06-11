@@ -12,12 +12,12 @@ export class AppComponent {
   }
 
   getCurrentUserEmail(){
-    let currentUserString= localStorage.getItem('currentUser')
+    let currentUserString= localStorage.getItem('currentUserType')
     if(currentUserString){
       //console.log(`current user:' ${currentUserString}`)
       let currentUser = (JSON.parse(currentUserString));
       //console.log(currentUser)
-      return currentUser.roles[0];
+      return currentUser;
     }else return null
   }
 
@@ -33,6 +33,6 @@ export class AppComponent {
     localStorage.removeItem('requestAlready');
   }
 
-  opened= false;
+
   title = 'SureService';
 }

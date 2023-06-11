@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PaymentService } from '../../services/payment.service';
 import { Request } from 'src/app/model/request';
@@ -16,8 +16,8 @@ interface Card {
 })
 export class PaymentComponent implements OnInit {
   itemData : Request= new Request();
-  floatLabelControl = new FormControl('visa')
-  selected = new FormControl(1)
+  floatLabelControl = new UntypedFormControl('visa')
+  selected = new UntypedFormControl(1)
   cards: Card[] = [
     {value: 'visa', viewValue: 'Visa'},
     {value: 'master', viewValue: 'MasterCard'},
@@ -28,7 +28,7 @@ export class PaymentComponent implements OnInit {
   showNext:boolean=false
   showDialog:boolean=false
 
-  paymentForm :FormGroup= this.builder.group({
+  paymentForm :UntypedFormGroup= this.builder.group({
     name: ['', [Validators.required, Validators.minLength(6)]],
     lastname: ['', [Validators.required, Validators.minLength(6)]],
     dni: ['', {validators: [Validators.required, Validators.pattern('^[0-9]*$'), Validators.maxLength(8),Validators.minLength(8)], updateOn: 'change'}],
@@ -39,7 +39,7 @@ export class PaymentComponent implements OnInit {
     type: this.floatLabelControl,
   });
 
-  constructor(public builder: FormBuilder, private newPaymentService: PaymentService, private route: ActivatedRoute, public router: Router) { }
+  constructor(public builder: UntypedFormBuilder, private newPaymentService: PaymentService, private route: ActivatedRoute, public router: Router) { }
 
   ngOnInit(): void {
     this.getRequest();
