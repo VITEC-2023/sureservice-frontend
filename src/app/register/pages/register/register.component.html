@@ -1,42 +1,117 @@
-<mat-grid-list cols="2" rowHeight="2:2">
-  <mat-grid-tile> 
-  <div class="body">
-    <div class="login">
-      <h1 class="h3 mb-3 fw-normal">Bienvenido a Sure Service</h1>
-      <p>Registrarse fácil y sencillo</p>
-      <form [formGroup]="registerForm">
-        <mat-form-field class="ancho" appearance="fill">
-          <mat-label>Correo</mat-label>
-          <input autocomplete="off" matInput placeholder="Tu email" formControlName="email" required>
-          <mat-error *ngIf="email?.errors?.['required']">Email is required</mat-error>
-          <mat-error *ngIf="email?.errors?.['email'] && !email?.errors?.['required']">Email is not valid</mat-error>
-        </mat-form-field>
-        <mat-form-field class="ancho" appearance="fill">
-          <mat-label>Contraseña</mat-label>
-          <input autocomplete="off" [type]="hide ? 'password' : 'text'" matInput placeholder="Tu contraseña" formControlName="password" required>
-          <mat-error *ngIf="password?.errors?.['required']">Password is required</mat-error>
-          <mat-error *ngIf="password?.errors?.['minLength'] && !password?.errors?.['required']">Password must have at least 6 characters </mat-error>
-          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-          </button>
-        </mat-form-field>
-        <div>
-          <mat-radio-group formControlName="typeUser" required>
-            <mat-radio-button class="margin" value="employee">Employee</mat-radio-button>
-            <mat-radio-button value="client">Client</mat-radio-button>
-          </mat-radio-group>
-        </div>
-        <br>
-        <button (click)="addNewuser()" mat-raised-button mat-button color="primary" class="ancho button" ><u>Registrarse</u></button>
-        <br><br>
+<div class="page">
+  <div class="left-side">
+      <img id="logo" class="logo" src="../../../../assets/register.svg" alt="Image of the logo">
 
-        <mat-label><a [routerLink]="'/login'">¿Ya tienes una cuenta?</a></mat-label>
-        <br><br>
-      </form>
-    </div>
+      <h1>Welcome to SureService</h1>
+
+      <p>The best way to contact with clients and technicians</p>
+
+      <h4 class="button button2" [routerLink]="'/login'">Login</h4>
   </div>
-  </mat-grid-tile>
 
-  <mat-grid-tile><div class="login-grid-tile" *ngIf={}><img src="https://i.ibb.co/ZxNWb0s/lla.png"></div></mat-grid-tile>
+  <div class="container">
+      <form class="form" [formGroup]="registerForm">
+          <img class="loginprofile" src="../../../../assets/undraw_pic_profile_re_7g2h.svg" alt="Image of a profile">
+          <h1>Sign up to SureService</h1>
 
-</mat-grid-list>
+          <div class="formField">
+              <mat-form-field appearance="outline">
+                  <mat-label>Name</mat-label>
+                  <input matInput formControlName="name" required>
+                  <mat-icon matSuffix>person</mat-icon>
+                  <mat-error *ngIf="name?.errors?.['required']">
+                    Name is required
+                  </mat-error>
+                  <mat-error *ngIf="name?.errors?.['maxlength']">
+                    Name must be valid
+                  </mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                  <mat-label>Email</mat-label>
+                  <input matInput formControlName="email" required>
+                  <mat-icon matSuffix>alternate_email</mat-icon>
+                  <mat-error *ngIf="email?.errors?.['required']">
+                    Email is required
+                  </mat-error>
+                  <mat-error *ngIf="email?.errors?.['email']">
+                    Email must be valid
+                  </mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                  <mat-label>Last Name</mat-label>
+                  <input matInput formControlName="lastName" required>
+                  <mat-icon matSuffix>person</mat-icon>
+                  <mat-error *ngIf="lastName?.errors?.['required']">
+                    Last Name is required
+                  </mat-error>
+                  <mat-error *ngIf="lastName?.errors?.['maxlength']">
+                    Last Name must be valid
+                  </mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                  <mat-label>Number</mat-label>
+                  <input matInput type="number" formControlName="number" required>
+                  <mat-icon matSuffix>phone_android</mat-icon>
+                  <mat-error *ngIf="number?.errors?.['required']">
+                    Number is required
+                  </mat-error>
+                  <mat-error *ngIf="number?.errors?.['pattern']">
+                    Number must be valid
+                  </mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                  <mat-label>Password</mat-label>
+                  <input matInput [type]="hide ? 'password' : 'text'" autocomplete="off" formControlName="password" required>
+                  <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                  <mat-error *ngIf="password?.errors?.['required']">
+                    Password is required
+                  </mat-error>
+                  <mat-error *ngIf="password?.errors?.['pattern']">
+                    Number and symbol required
+                  </mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                  <mat-label>Confirm Password</mat-label>
+                  <input matInput [type]="hide ? 'password' : 'text'" autocomplete="off" formControlName="confirmPassword" required>
+                  <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                  <mat-error *ngIf="confirmPassword?.errors?.['required']">
+                    Password is required
+                  </mat-error>
+                  <mat-error *ngIf="confirmPassword.errors?.['confirmedValidator']">
+                    Passwords doesn't match
+                  </mat-error>
+              </mat-form-field>
+              <div class="userType">
+                <mat-form-field appearance="outline">
+                  <mat-label>Choose your user type</mat-label>
+                  <mat-select formControlName="typeUser" required>
+                    <mat-option value="ROLE_EMPLOYEE">Employee</mat-option>
+                    <mat-option value="ROLE_CLIENT">Client</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="typeUser.errors?.['required']">You must make a selection</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" *ngIf="typeUser.value=='ROLE_EMPLOYEE'">
+                  <mat-label>Choose a service</mat-label>
+                  <mat-select formControlName="typeService" required>
+                    <mat-option value=1>Electricity</mat-option>
+                    <mat-option value=2>Plumbing</mat-option>
+                    <mat-option value=3>Computer repair</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="typeService.errors?.['required']">You must make a selection</mat-error>
+                </mat-form-field>
+              </div>
+          </div>
+
+          <h4 class="button" (click)="register()">Create account</h4>
+
+          <p class="goregister">Already have an account? Login <span [routerLink]="'/login'">here!</span></p>
+      </form>
+
+  </div>
+</div>

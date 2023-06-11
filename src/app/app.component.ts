@@ -33,6 +33,6 @@ export class AppComponent {
     localStorage.removeItem('requestAlready');
   }
 
-  opened= false;
+
   title = 'SureService';
 }

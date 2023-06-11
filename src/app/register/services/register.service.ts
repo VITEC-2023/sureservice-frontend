@@ -11,6 +11,10 @@ export class RegisterService {
   api = new Api()
   url = 'users'
 
+  url2= 'users/auth'
+  urlEmployee= 'employees'
+  urlClient= 'clients'
+
   constructor(private http: HttpClient) { }
 
   httpOptions = {
@@ -42,6 +46,29 @@ export class RegisterService {
 
   getAll() {
     return this.http.get(this.api.bakendLink()+this.url, this.httpOptions)
+      .pipe(
+        retry(2),
+        catchError(this.handleError)
+      )
+  }
+
+  register(object: any){
+    return this.http.post(this.api.bakendLink()+this.url2+'/sign-up',object,this.httpOptions)
+    .pipe(
+      retry(2), catchError(this.handleError)
+    );
+  }
+
+  createClient(item: object,id: any):Observable<object> {
+    return this.http.post(this.api.bakendLink()+this.urlClient+'/'+id, item, this.httpOptions)
+      .pipe(
+        retry(2),
+        catchError(this.handleError),
+      )
+  }
+
+  createEmployee(item: object,userId: any,serviceId: any):Observable<object> {
+    return this.http.post(this.api.bakendLink()+this.urlEmployee+'/'+userId+'/'+serviceId, item, this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError)

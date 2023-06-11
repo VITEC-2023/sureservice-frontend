@@ -1,7 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: "Montserrat", sans-serif; }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+:root{
+    --mainFont: #3F51B5;
+    --secondaryFont: #1f3ad6;
+    --button: #1537F2;
+    --white: #ffffff;
+    --colorMain: rgba(21, 55, 242, 1);
+}

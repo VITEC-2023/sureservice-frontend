@@ -8,7 +8,13 @@ import {Router} from "@angular/router";
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
+  errorLogin=false;
+  images=["../../../../assets/work1.svg","../../../../assets/work.svg","../../../../assets/work2.svg"];
+  text=["Fully trained workers","Friendly environment","100% secure contracts"];
+  number=0;
+  logo=this.images[0];
+  info=this.text[0];
   hide = true;
 
   loginForm :FormGroup= this.builder.group({
@@ -19,11 +25,23 @@ export class LoginComponent implements OnInit {
   constructor(public builder: FormBuilder, public authService: LoginService, public router: Router) {
 
   }
-  ngOnInit(): void {
-  }
 
   get email() { return this.loginForm.controls['email'];}
   get password() { return this.loginForm.controls['password'];}
+
+  rightChange(){
+    this.number++;
+    if(this.number>this.images.length-1)this.number=0;
+    this.logo=this.images[this.number];
+    this.info=this.text[this.number];
+  }
+
+  leftChange(){
+    this.number--;
+    if(this.number<0)this.number=this.images.length-1;
+    this.logo=this.images[this.number];
+    this.info=this.text[this.number];
+  }
 
   getCurrentUserType(){
     let currentUserString= localStorage.getItem('currentUser')
@@ -34,7 +52,36 @@ export class LoginComponent implements OnInit {
     }else return null
   }
 
-  signIn(){
+  /*login(){
+    const User={
+      email: this.loginForm.value.email,
+      password: this.loginForm.value.password
+    }
+    this.authService.signIn(User).subscribe(
+      {
+        next: (data:any) => {
+          localStorage.setItem('accessToken', JSON.stringify(data.body.token));
+          localStorage.setItem('currentUser', JSON.stringify(data.body));
+          console.log(`${localStorage.getItem('accessToken')}`);
+          console.log(data.body.tok);
+        },
+        error: () => {
+          document.getElementById('errorLogin')!.style.display='block'
+          document.getElementById('errorLogin')!.innerHTML="Incorrect email or password";
+        },
+        complete: () => {
+          this.loginForm.reset();
+          if(this.getCurrentUserType()=='ROLE_EMPLOYEE'){
+            this.router.navigate(['homeemployee']).then();
+          }
+          else{
+            this.router.navigate(['home']).then();
+          }
+        },
+      }
+    );
+  }*/
+  login(){
     const User={
       email: this.loginForm.value.email,
       password: this.loginForm.value.password

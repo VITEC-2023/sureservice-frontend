@@ -1,4 +1,17 @@
 /*content*/
+.page{
+  position: relative;
+  height: 100vh;
+  overflow-y: hidden;
+}
+
+.absolute{
+  position: absolute;
+  height: 300px;
+  bottom: 20px;
+  right: 50px;
+  border: 1px solid #0B556A;
+}
 
 /*New Components*/
 .text{

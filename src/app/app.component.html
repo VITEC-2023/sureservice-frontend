@@ -3,7 +3,7 @@
 </div>
 
 <div *ngIf="getCurrentUserEmail() === 'ROLE_CLIENT'" class="all">
-<mat-toolbar class="nav-bar" *ngIf="(router.url !== '/login' && router.url !== '/configure')">
+<mat-toolbar class="nav-bar" *ngIf="(router.url !== '/login' && router.url !== '/register')">
     <span class="spaces">Sure Service</span>
     <span class="spacer"></span>
     <a class="text" (click)="deleteRequest()" [routerLink]="'/home'" href="#">Inicio</a>
@@ -15,7 +15,7 @@
 </div>
 
 <div *ngIf="getCurrentUserEmail() === 'ROLE_EMPLOYEE'" class="all">
-  <mat-toolbar class="nav-bar" *ngIf="(router.url !== '/login' && router.url !== '/configure')">
+  <mat-toolbar class="nav-bar" *ngIf="(router.url !== '/login' && router.url !== '/register')">
       <span class="spaces">Sure Service</span>
       <span class="spacer"></span>
       <a class="text" [routerLink]="'/homeemployee'" href="#">Inicio</a>
