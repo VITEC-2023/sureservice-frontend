@@ -46,6 +46,7 @@ import { ProfileClientComponent } from './profile/pages/profile-client/profile-c
 import { RequestComponent } from './request/pages/request/request.component';
 import { CompleterequestDialogComponent } from './dialogs/pages/completerequest-dialog/completerequest-dialog.component';
 import { EmployeeworkComponent } from './dialogs/pages/employeework/employeework.component';
+import { ChatbotComponent } from './chatbot/chatbot.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { EmployeeworkComponent } from './dialogs/pages/employeework/employeework
     RequestComponent,
     CompleterequestDialogComponent,
     EmployeeworkComponent,
+    ChatbotComponent,
   ],
   imports: [
     BrowserModule,

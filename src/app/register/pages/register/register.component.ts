@@ -22,7 +22,7 @@ export class RegisterComponent {
     email: ['', [Validators.required, Validators.email]],
     password: ['', [
       Validators.required,
-      Validators.pattern(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,}$/)]
+      ]
     ],
     confirmPassword: ['', [Validators.required]],
     number: ['', [Validators.required,
@@ -34,7 +34,7 @@ export class RegisterComponent {
     typeService: ['', Validators.required],
   }, { validator: this.confirmedValidator('password', 'confirmPassword') });
 
-  constructor(public builder: UntypedFormBuilder, public service: RegisterService, public router: Router) {}
+  constructor(public builder: UntypedFormBuilder, public service: RegisterService, public router: Router) { }
 
   get name() {
     return this.registerForm.controls['name'];
@@ -74,7 +74,7 @@ export class RegisterComponent {
       age: 0,
       phone: this.number.value.toString(),
       altphone: "-",
-      urlToImage: "-",
+      urlToImage: "https://i.ibb.co/XkhCy5M/noFoto.jpg",
       description: "-"
     }
     const client = {
@@ -82,23 +82,28 @@ export class RegisterComponent {
       age: 0,
       phone: this.number.value.toString(),
       altphone: "-",
-      urlToImage: "-",
+      urlToImage: "https://i.ibb.co/XkhCy5M/noFoto.jpg",
       address: "-",
       description: "-"
     }
-    console.log(client)
     this.service.register(user).subscribe({
       next: (v: any) => {
-        console.log(v.body)
-        this.userId = v.body.id
-        localStorage.setItem('accessToken', JSON.stringify(v.body.token));
-        localStorage.setItem('currentUser', JSON.stringify(v.body));
+        console.log(v)
+        this.userId = v.id
+        localStorage.setItem('accessToken', JSON.stringify(v.token));
+        localStorage.setItem('currentUser', JSON.stringify(v));
+        localStorage.setItem('currentUserType', JSON.stringify(v.roles[0].name));
       },
       error: (e) => console.error(e),
       complete: () => {
-        if (this.typeUser.value == 'ROLE_EMPLOYEE') this.service.createEmployee(employee, this.userId, this.typeService.value).subscribe(a => { console.log(a) });
-        else this.service.createClient(client, this.userId).subscribe(a => { console.log(a) });
-        this.router.navigate(['/home']).then();
+        if (this.typeUser.value == 'ROLE_EMPLOYEE') this.service.createEmployee(employee, this.userId, this.typeService.value).subscribe(a => {
+          console.log(a)
+          this.router.navigate(['/homeemployee']).then();
+        });
+        else this.service.createClient(client, this.userId).subscribe(a => {
+          console.log(a)
+          this.router.navigate(['/home']).then();
+        });
       }
     })
   }
@@ -119,6 +124,16 @@ export class RegisterComponent {
         matchingControl.setErrors(null);
       }
     };
+  }
+
+    getCurrentUserEmail(){
+    let currentUserString= localStorage.getItem('currentUser')
+    if(currentUserString){
+      //console.log(`current user:' ${currentUserString}`)
+      let currentUser = (JSON.parse(currentUserString));
+      //console.log(currentUser)
+      return currentUser.roles[0];
+    }else return null
   }
 
   /*addNewuser(){

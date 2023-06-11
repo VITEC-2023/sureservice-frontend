@@ -14,6 +14,7 @@ import { RegisterComponent } from './register/pages/register/register.component'
 import { ServicesComponent } from './services/pages/services/services.component';
 import { ConfigureregisterComponent } from './register/pages/configureregister/configureregister.component';
 import { RequestComponent } from './request/pages/request/request.component';
+import { ChatbotComponent } from './chatbot/chatbot.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -30,6 +31,7 @@ const routes: Routes = [
   { path: 'profileemployee',component:ProfileEmployeeUserComponent},
   { path: 'homeemployee',component:HomeEmployeeComponent},
   { path: 'request',component:RequestComponent},
+  { path: 'chatbot',component:ChatbotComponent},
 ];
 
 @NgModule({

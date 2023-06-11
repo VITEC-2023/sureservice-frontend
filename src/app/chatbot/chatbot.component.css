@@ -1,0 +1,14 @@
+.absolute{
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.content{
+    margin-top: 3rem;
+    width: 50%;
+    height: 40rem;
+    border: 1px solid #0B556A;
+}
